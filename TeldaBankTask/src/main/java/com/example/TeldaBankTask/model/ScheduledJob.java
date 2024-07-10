@@ -1,4 +1,4 @@
-package com.example.TeldaBankTask.ScheduledJob;
+package com.example.TeldaBankTask.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

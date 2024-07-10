@@ -1,7 +1,7 @@
 package com.example.TeldaBankTask;
 
-import com.example.TeldaBankTask.CronScheduler.CronScheduler;
-import com.example.TeldaBankTask.ScheduledJob.ScheduledJob;
+import com.example.TeldaBankTask.service.CronScheduler;
+import com.example.TeldaBankTask.model.ScheduledJob;
 import org.junit.jupiter.api.*;
 import org.mockito.ArgumentCaptor;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,6 +1,6 @@
-package com.example.TeldaBankTask.CronScheduler;
+package com.example.TeldaBankTask.service;
 
-import com.example.TeldaBankTask.ScheduledJob.ScheduledJob;
+import com.example.TeldaBankTask.model.ScheduledJob;
 import jakarta.annotation.PreDestroy;
 import lombok.Getter;
 import org.springframework.stereotype.Component;

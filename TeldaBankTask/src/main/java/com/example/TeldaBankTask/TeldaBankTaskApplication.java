@@ -1,50 +1,30 @@
 package com.example.TeldaBankTask;
 
-import com.example.TeldaBankTask.CronScheduler.CronScheduler;
-import com.example.TeldaBankTask.ScheduledJob.ScheduledJob;
+import com.example.TeldaBankTask.model.ScheduledJob;
+import com.example.TeldaBankTask.model.ScheduledPrintJob;
+import com.example.TeldaBankTask.service.CronScheduler;
+import com.example.TeldaBankTask.service.ScratchScheduler;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @SpringBootApplication
 public class TeldaBankTaskApplication {
-	private AtomicInteger x = new AtomicInteger(0);
 
 	public static void main(String[] args) {
-		SpringApplication.run(TeldaBankTaskApplication.class, args);
-	}
-	@Bean
-	public CommandLineRunner schedulingRunner(CronScheduler scheduler) {
-		return args -> {
-			Runnable task1 = () -> System.out.println("Scheduled task running at " + new java.util.Date());
-			Runnable task2 = () -> System.out.println("Scheduled task running at " + new java.util.Date());
-			Runnable task3 = () -> System.out.println("Scheduled task running at " + new java.util.Date());
-            Runnable task4 = incrementValueX();
-            Runnable task5 = printValueX();
+		ScratchScheduler scheduler = new ScratchScheduler();
 
+		ScheduledPrintJob job1 = new ScheduledPrintJob("Job 1 runs every 5 seconds", 0, 2, TimeUnit.SECONDS);
+		ScheduledPrintJob job2 = new ScheduledPrintJob("Job 2 runs every 10 seconds", 2, 4, TimeUnit.SECONDS);
+		ScheduledPrintJob job3 = new ScheduledPrintJob("Job 3 runs every 15 seconds", 4, 6, TimeUnit.SECONDS);
 
-			ScheduledJob job1 = new ScheduledJob("printTime1", task1, 0, 5, TimeUnit.SECONDS);
-			ScheduledJob job2 = new ScheduledJob("printTime2", task2, 5,  10, TimeUnit.SECONDS);
-            ScheduledJob job3 = new ScheduledJob("printTime3", task3, 10, 15, TimeUnit.SECONDS);
-            ScheduledJob job4 = new ScheduledJob("incrementX", task4, 2, 5, TimeUnit.SECONDS);
-            ScheduledJob job5 = new ScheduledJob("printX", task5, 2, 6, TimeUnit.SECONDS);
+		scheduler.scheduleJob("job1", job1);
+		scheduler.scheduleJob("job2", job2);
+		scheduler.scheduleJob("job3", job3);
 
-            scheduler.scheduleJob(job1);
-			scheduler.scheduleJob(job2);
-			scheduler.scheduleJob(job3);
-			scheduler.scheduleJob(job4);
-			scheduler.scheduleJob(job5);
-		};
 	}
 
-    public Runnable incrementValueX() {
-        return () -> x.incrementAndGet();
-    }
-
-    public Runnable printValueX() {
-        return () -> System.out.println("The Value of X is " + x.get());
-    }
 }
